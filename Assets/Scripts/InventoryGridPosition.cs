@@ -1,25 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryGridPosition : MonoBehaviour
 {
     public string InventoryGridPositionLoc;
 
     public bool GridPositionIsAvailable;
-    private SpriteRenderer sr;
+    private Image gridImage;
 
     void Awake()
     {
         InventoryGridPositionLoc = gameObject.name;
-        sr = GetComponent<SpriteRenderer>();
+        gridImage = GetComponent<Image>();
         if (GridPositionIsAvailable)
         {
-            sr.color = Color.gray;
+            gridImage.color = Color.gray;
         }
         else
         {
-            sr.color = Color.black;
+            gridImage.color = Color.black;
         }
     }
 

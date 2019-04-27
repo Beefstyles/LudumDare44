@@ -22,7 +22,15 @@ public class PlayerSwingCollider : MonoBehaviour
 
     public void SwingObject(string objectType)
     {
-        resource = SwingRadiusGO.GetComponent<Resource>();
+        if(SwingRadiusGO != null)
+        {
+            resource = SwingRadiusGO.GetComponent<Resource>();
+        }
+        else
+        {
+            return;
+        }
+        
         if(resource != null)
         {
             switch (resource.ActionToObject)

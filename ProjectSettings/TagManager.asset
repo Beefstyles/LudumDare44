@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - ExitLevel
   - DropOffZone
+  - InventoryButton
   layers:
   - Default
   - TransparentFX
