@@ -4,33 +4,83 @@ using UnityEngine;
 
 public class CrosshairChange : MonoBehaviour
 {
-    public Texture2D DefaultTexture;
-    public Texture2D PickUpTexture;
-    public Texture2D DigTexture;
+    public Sprite DefaultCursor;
+    public Sprite PickupCursor;
+    public Sprite DigCursor;
+    public Sprite AttackCursor;
     public CursorMode curMode;
     public Vector2 HotSpot = Vector2.zero;
-    // Start is called before the first frame update
+    private Resource clickableResource;
+
+
     void Start()
     {
-        
+        SetDefaultCursor();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void OnMouseEnter()
     {
-        if(gameObject.tag == "DigSpot")
+        Debug.Log(gameObject.tag);
+        if (gameObject.tag == "ActionObject")
         {
-            Cursor.SetCursor(DigTexture, HotSpot, curMode);
+            Ray ray;
+            RaycastHit hit;
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if(Physics.Raycast(ray, out hit))
+            {
+                clickableResource = hit.collider.GetComponent<Resource>();
+                Debug.Log("Hit " + clickableResource.ActionToObject);
+                if (clickableResource != null)
+                {
+                    switch (clickableResource.ActionToObject)
+                    {
+                        case (ActionToObject.Digup):
+                            SetDigCursor();
+                            break;
+                        case (ActionToObject.Pickup):
+                            SetPickupCursor();
+                            break;
+                        case (ActionToObject.Attack):
+                            SetAttackCursor();
+                            break;
+                        case (ActionToObject.NoAction):
+                            SetDefaultCursor();
+                            break;
+                    }
+                    
+            }
+            }
+            
+            
+            Cursor.SetCursor(DigCursor.texture, HotSpot, curMode);
         }
     }
 
     void OnMouseExit()
     {
-        Cursor.SetCursor(DefaultTexture, HotSpot, curMode);
+        SetDefaultCursor();
     }
+
+    void SetDefaultCursor()
+    {
+        Cursor.SetCursor(DefaultCursor.texture, HotSpot, curMode);
+    }
+
+    void SetDigCursor()
+    {
+        Cursor.SetCursor(DigCursor.texture, HotSpot, curMode);
+    }
+
+    void SetPickupCursor()
+    {
+        Cursor.SetCursor(PickupCursor.texture, HotSpot, curMode);
+    }
+
+    void SetAttackCursor()
+    {
+        Cursor.SetCursor(AttackCursor.texture, HotSpot, curMode);
+    }
+
 }
