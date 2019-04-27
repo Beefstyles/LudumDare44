@@ -5,5 +5,5 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public bool HasShovel;
-    
+    public int NumberOfSpareSlots;
 }
