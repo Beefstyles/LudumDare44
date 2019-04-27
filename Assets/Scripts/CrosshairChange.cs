@@ -18,6 +18,20 @@ public class CrosshairChange : MonoBehaviour
         SetDefaultCursor();
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray;
+            RaycastHit hit;
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.collider.tag);
+            }
+        }
+    }
 
     void OnMouseEnter()
     {
